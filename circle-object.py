@@ -35,9 +35,14 @@ def thresh_callback(val):
         cv.drawContours(drawing, biggest_contour, i, color_obj)
         cv.circle(drawing, (int(centers[i][0]), int(centers[i][1])), int(radius[i]), color_circle, 2)
 
+    cen = centers[0]
+    print("Centro: ",centers[0][0],centers[0][1])
+    print("Raio: ",radius[0])
+    print("Diametro: ",pow(radius[0],2))
+    print("Area do Circulo: ",(3.14*(radius[0]**2)))
     cv.imshow('Contours', drawing)
     
-src = cv.imread('../PH2/Segmentadas/MelanomaSegmentada/IMD088_lesion.bmp')
+src = cv.imread('../PH2/Segmentadas/MelanomaSegmentada/IMD211_lesion.bmp')
     
 # Convert image to gray and blur it
 src_gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)
