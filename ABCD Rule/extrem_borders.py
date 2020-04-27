@@ -1,25 +1,25 @@
 # import the necessary packages
 import imutils
-import cv2
+import cv2 as cv
 from math import sqrt
 
 # load the image, convert it to grayscale, and blur it slightly
-image = cv2.imread("../PH2/Segmentadas/MelanomaSegmentada/IMD411_lesion.bmp")
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-gray = cv2.GaussianBlur(gray, (5, 5), 0)
+image = cv.imread("../Segmentadas/MelanomaSegmentada/IMD418_lesion.bmp")
+gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+gray = cv.GaussianBlur(gray, (5, 5), 0)
 
 # threshold the image, then perform a series of erosions +
 # dilations to remove any small regions of noise
-thresh = cv2.threshold(gray, 45, 255, cv2.THRESH_BINARY)[1]
-thresh = cv2.erode(thresh, None, iterations=2)
-thresh = cv2.dilate(thresh, None, iterations=2)
+thresh = cv.threshold(gray, 45, 255, cv.THRESH_BINARY)[1]
+thresh = cv.erode(thresh, None, iterations=2)
+thresh = cv.dilate(thresh, None, iterations=2)
 
 # find contours in thresholded image, then grab the largest
 # one
-cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                        cv2.CHAIN_APPROX_SIMPLE)
+cnts = cv.findContours(thresh.copy(), cv.RETR_EXTERNAL,
+                       cv.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
-c = max(cnts, key=cv2.contourArea)
+c = max(cnts, key=cv.contourArea)
 
 # determine the most extreme points along the contour
 extLeft = tuple(c[c[:, :, 0].argmin()][0])
@@ -66,12 +66,12 @@ else:
 # draw the outline of the object, then draw each of the
 # extreme points, where the left-most is red, right-most
 # is green, top-most is blue, and bottom-most is teal
-cv2.drawContours(image, [c], -1, (0, 255, 255), 2)
-cv2.circle(image, extLeft, 6, (0, 0, 255), -1)
-cv2.circle(image, extRight, 6, (0, 255, 0), -1)
-cv2.circle(image, extTop, 6, (255, 0, 0), -1)
-cv2.circle(image, extBot, 6, (255, 255, 0), -1)
+cv.drawContours(image, [c], -1, (0, 255, 255), 2)
+cv.circle(image, extLeft, 6, (0, 0, 255), -1)
+cv.circle(image, extRight, 6, (0, 255, 0), -1)
+cv.circle(image, extTop, 6, (255, 0, 0), -1)
+cv.circle(image, extBot, 6, (255, 255, 0), -1)
 
 # show the output image
-cv2.imshow("Image", image)
-cv2.waitKey(0)
+cv.imshow("Image", image)
+cv.waitKey(0)
