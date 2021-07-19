@@ -9,19 +9,15 @@ import os
 
 def main():
     read_folder("/home/alex/Documentos/TCC2/ISIC/Melanoma/*.jpg")
-    #img = cv.imread("/home/alex/Área de Trabalho/ISIC/GRAY/Melanoma/ISIC_GRAY72.png",0)
-    # percorre(img)
-    # print(4**2)
 
 
 def read_folder(path):
     filenames = glob.glob(path)
     filenames.sort()
     images = [print(file) for file in filenames]
-    # return images
 
 
-def percorre(img):
+def count(img):
     vetor = []
     te = 0
     N = 0
@@ -43,7 +39,6 @@ def percorre(img):
 
     for a in range(0, 256):
         print("Nível {0} ===> {1}p" .format(a, vetor[a]))
-    # return vetor
 
     print("\nNumber of species present in the sample: ", te)
     print("Total number of individuals in the sample: ", N)
